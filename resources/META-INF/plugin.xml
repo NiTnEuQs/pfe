@@ -29,7 +29,12 @@
   </extensions>
 
   <actions>
-    <!-- Add your actions here -->
+      <group id="pfe.CarbonX" text="_CarbonX" description="CarbonX">
+          <add-to-group group-id="MainMenu" anchor="last"/>
+          <action id="connection.Connect" class="connection.Connect" text="Connexion"
+                  description="Etablir la connexion"/>
+      </group>
   </actions>
+
 
 </idea-plugin>

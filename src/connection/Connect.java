@@ -11,8 +11,10 @@ import java.net.URISyntaxException;
 
 public class Connect extends AnAction {
 
+    private final static String NOM_SESSION = "pfe";
+
     public Connect() {
-        super("Connect");
+        super("Connexion");
     }
 
     @Override
@@ -28,23 +30,23 @@ public class Connect extends AnAction {
         assert wse != null;
 
         WSE finalWse = wse;
-        wse.onConnection(arg0 -> {
-            finalWse.joinSession("NOM_SESSION");
+        finalWse.onConnection(objects -> {
+            finalWse.joinSession(NOM_SESSION);
             finalWse.addListener(new WSEListener() {
                 @Override
                 public void onMessage(JSONObject msg) {
-                    // Chaque message aura la forme suivante :
-                    msg = {
-                            "id":000, // généré par le serveur
-                            "source":"source_id", // Un id unique pour la personne qui a envoyé le message
-                            "timestamp":123456, // Le timestamp du message
-                            "session":"NOM_SESSION", // Le nom de la session sur laquelle le message passe
-                            "data":{
-                        // Tout ce qui a été envoyé par l'utilisateur est compris dans "data"
-                    }
+                    System.out.println("Message reçu !!!");
+                    try {
+                        System.out.println("ID: " + msg.get("id"));
+                        System.out.println("Source: " + msg.get("source"));
+                        System.out.println("Timestamp: " + msg.get("timestamp"));
+                        System.out.println("Session: " + msg.get("session"));
+                        System.out.println("Data: " + msg.get("data"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-            }, "NOM_SESSION");
+            }, NOM_SESSION);
 
             JSONObject startMessage = new JSONObject();
 
@@ -55,10 +57,14 @@ public class Connect extends AnAction {
                 e1.printStackTrace();
             }
 
-            finalWse.sendMessage(startMessage, "NOM_SESSION");
+            finalWse.sendMessage(startMessage, NOM_SESSION);
         });
 
-        wse.connect();
+        finalWse.setSessionJoinedListener(objects ->
+                System.out.println("Quelqu'un s'est connecté !")
+        );
+
+        finalWse.connect();
     }
 
 }
