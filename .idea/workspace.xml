@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7b7751f-7d4e-4c63-a9a0-387120e1d006" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utilities/Log.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utilities/Message.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/connection/Connect.java" afterPath="$PROJECT_DIR$/src/connection/Connect.java" />
     </list>
@@ -18,8 +20,8 @@
       <file leaf-file-name="plugin.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/META-INF/plugin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="32" column="59" lean-forward="true" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
+            <state relative-caret-position="216">
+              <caret line="34" column="54" lean-forward="true" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -28,13 +30,13 @@
       <file leaf-file-name="Connect.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/connection/Connect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+            <state relative-caret-position="270">
+              <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
               <folding>
-                <element signature="e#587#588#0" expanded="true" />
-                <element signature="e#621#622#0" expanded="true" />
-                <element signature="e#1855#2466#0" expanded="true" />
-                <element signature="e#2465#2466#0" expanded="true" />
+                <element signature="e#635#636#0" expanded="true" />
+                <element signature="e#669#670#0" expanded="true" />
+                <element signature="e#1388#1612#0" expanded="true" />
+                <element signature="e#1611#1612#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,6 +47,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -63,7 +66,10 @@
         <option value="$PROJECT_DIR$/libs/socket.io.js" />
         <option value="$PROJECT_DIR$/libs/wse.js" />
         <option value="$PROJECT_DIR$/src/connect/Connect.java" />
+        <option value="$PROJECT_DIR$/src/utilities/MessageType.java" />
         <option value="$PROJECT_DIR$/resources/META-INF/plugin.xml" />
+        <option value="$PROJECT_DIR$/src/utilities/Log.java" />
+        <option value="$PROJECT_DIR$/src/utilities/Message.java" />
         <option value="$PROJECT_DIR$/src/connection/Connect.java" />
       </list>
     </option>
@@ -136,6 +142,12 @@
               <item name="pfe" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="connection" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pfe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pfe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -288,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1513690690824</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="La connection est effective avec le serveur distant&#10;Les messages sont bien reçus et traités">
+      <created>1513693112466</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1513693112466</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -330,7 +349,8 @@
     <MESSAGE value="Ajout des librairies au projet" />
     <MESSAGE value="Ajout de la classe Connect&#10;/!\ Erreur avec l'objet JSON &quot;msg&quot;, la syntaxe n'est pas la bonne, à corriger /!\" />
     <MESSAGE value="Ajout de l'action dans le ficheir plugin.xml&#10;Connection à une session établi dans l'action (Connect.java)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de l'action dans le ficheir plugin.xml&#10;Connection à une session établi dans l'action (Connect.java)" />
+    <MESSAGE value="La connection est effective avec le serveur distant&#10;Les messages sont bien reçus et traités" />
+    <option name="LAST_COMMIT_MESSAGE" value="La connection est effective avec le serveur distant&#10;Les messages sont bien reçus et traités" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -353,10 +373,10 @@
         <state relative-caret-position="330">
           <caret line="22" column="42" lean-forward="true" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
           <folding>
-            <element signature="e#587#588#0" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-            <element signature="e#1855#2466#0" expanded="true" />
-            <element signature="e#2465#2466#0" expanded="true" />
+            <element signature="e#635#636#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#1388#1612#0" expanded="true" />
+            <element signature="e#1611#1612#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -365,6 +385,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-49">
           <caret line="2029" column="23" lean-forward="true" selection-start-line="2029" selection-start-column="23" selection-end-line="2029" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -372,6 +393,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="138" column="44" lean-forward="true" selection-start-line="138" selection-start-column="44" selection-end-line="138" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -401,23 +423,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/MessageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/META-INF/plugin.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="32" column="59" lean-forward="true" selection-start-line="32" selection-start-column="59" selection-end-line="32" selection-end-column="59" />
+        <state relative-caret-position="216">
+          <caret line="34" column="54" lean-forward="true" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="54" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/Log.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="15" column="27" lean-forward="false" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding>
+            <element signature="e#282#283#0" expanded="true" />
+            <element signature="e#333#334#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utilities/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="42" column="30" lean-forward="false" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/connection/Connect.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+        <state relative-caret-position="270">
+          <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
           <folding>
-            <element signature="e#587#588#0" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-            <element signature="e#1855#2466#0" expanded="true" />
-            <element signature="e#2465#2466#0" expanded="true" />
+            <element signature="e#635#636#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#1388#1612#0" expanded="true" />
+            <element signature="e#1611#1612#0" expanded="true" />
           </folding>
         </state>
       </provider>

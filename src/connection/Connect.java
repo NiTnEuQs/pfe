@@ -4,8 +4,9 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import fr.lifl.carbon.wse.WSE;
 import fr.lifl.carbon.wse.WSEListener;
-import org.json.JSONException;
 import org.json.JSONObject;
+import utilities.Log;
+import utilities.Message;
 
 import java.net.URISyntaxException;
 
@@ -32,7 +33,7 @@ public class Connect extends AnAction {
             e.printStackTrace();
         }
 
-        // On vérifie si wse est bien initialisé
+        // On vérifie que wse est bien initialisé
         assert wse != null;
 
         WSE finalWse = wse;
@@ -40,35 +41,24 @@ public class Connect extends AnAction {
             // Dès que la connection est effectuée, on rejoint la session NOM_SESSION
             finalWse.joinSession(NOM_SESSION);
 
-            // On envoie ensuite le message de lancement de l'application Android Studio
-            // TODO Attention, le message s'envoie toutes les X secondes
-            JSONObject startMessage = new JSONObject();
+            // On écoute les messages envoyés sur la session NOM_SESSION
+            finalWse.addListener(new WSEListener() {
+                @Override
+                public void onMessage(JSONObject object) {
+                    Message msg = new Message(object);
 
-            try {
-                startMessage.put("application", "AndroidStudio");
-                startMessage.put("action", "started");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            finalWse.sendMessage(startMessage, NOM_SESSION);
-        });
-
-        // On écoute les messages envoyés sur la session NOM_SESSION
-        finalWse.addListener(new WSEListener() {
-            @Override
-            public void onMessage(JSONObject msg) {
-                try {
-                    System.out.println("-*-*-(" + msg.get("id") + ")-*-*-");
-                    System.out.println("Source: " + msg.get("source"));
-                    System.out.println("Timestamp: " + msg.get("timestamp"));
-                    System.out.println("Session: " + msg.get("session"));
-                    System.out.println("Data: " + msg.get("data"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.v(msg);
                 }
-            }
-        }, NOM_SESSION);
+            }, NOM_SESSION);
+
+            // On envoie ensuite le message de lancement de l'application Android Studio
+            Message msg = new Message(new String[][]{
+                    {"application", "AndroidStudio"},
+                    {"action", "started"},
+            });
+
+            finalWse.sendMessage(msg.getMessage(), NOM_SESSION);
+        });
 
         // On effectue la connexion avec WSE
         finalWse.connect();
