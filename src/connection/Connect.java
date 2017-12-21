@@ -2,12 +2,16 @@ package connection;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
 import fr.lifl.carbon.wse.WSE;
 import fr.lifl.carbon.wse.WSEListener;
+import message.Message;
 import org.json.JSONObject;
 import utilities.Log;
-import utilities.Message;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
@@ -16,7 +20,8 @@ import java.net.URISyntaxException;
  */
 public class Connect extends AnAction {
 
-    private final static String NOM_SESSION = "pfe";
+    public final static String NOM_SESSION = "pfe";
+    public static WSE wse;
 
     public Connect() {
         super("Connexion");
@@ -24,7 +29,7 @@ public class Connect extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent anActionEvent) {
-        WSE wse = null;
+        wse = null;
 
         try {
             // On initialise la connexion vers le serveur distant
@@ -46,22 +51,70 @@ public class Connect extends AnAction {
                 @Override
                 public void onMessage(JSONObject object) {
                     Message msg = new Message(object);
+                    Message data = msg.getJSONToMessage("data");
 
-                    Log.v(msg);
+                    handleMessage(data);
                 }
             }, NOM_SESSION);
 
             // On envoie ensuite le message de lancement de l'application Android Studio
+            /*
             Message msg = new Message(new String[][]{
                     {"application", "AndroidStudio"},
                     {"action", "started"},
             });
 
             finalWse.sendMessage(msg.getMessage(), NOM_SESSION);
+            */
         });
 
         // On effectue la connexion avec WSE
         finalWse.connect();
+    }
+
+    public void handleMessage(Message msg) {
+        Project project = ProjectManager.getInstance().getOpenProjects()[0];
+
+        switch (msg.getType()) {
+            case CREATE_FILE:
+                String location = msg.getAsString("location");
+                String filename = msg.getAsString("filename");
+                String relativePath = location + "/" + filename;
+
+                File file = new File(project.getBasePath() + relativePath);
+
+                if (!file.exists()) {
+                    try {
+                        if (!file.getParentFile().exists() && file.getParentFile().mkdirs()) {
+                            Log.v("Folders created ! (" + file.getParent() + ")");
+                        }
+
+                        if (file.createNewFile()) {
+                            Log.v("File created ! (" + file.getPath() + ")");
+                        }
+                    } catch (IOException e) {
+                        Log.e(file.getPath());
+                        e.printStackTrace();
+                    }
+                }
+
+                //VirtualFile vf = project.getBaseDir().findFileByRelativePath(relativePath);
+                //FileEditorManager.getInstance(project).openFile(vf, true, true);
+
+                //OpenFileDescriptor ofd = new OpenFileDescriptor(project, vf);
+                //if (ofd.canNavigateToSource()) ofd.navigate(true);
+
+                break;
+            case GO_TO_FILE:
+
+                break;
+            case GO_TO_LINE:
+
+                break;
+            default:
+
+                break;
+        }
     }
 
 }
