@@ -1,9 +1,11 @@
-package message;
+package api;
 
 public enum MessageType {
 
+    CREATE_PACKAGES("Créer des packages"),
     CREATE_FILE("Créer un fichier"),
-    GO_TO_FILE("Aller au fichier ..."),
+    CREATE_CONCEPT("Créer un concept"),
+    OPEN_FILE("Ouvrir le fichier ..."),
     GO_TO_LINE("Aller à la ligne ...");
 
     final String text;

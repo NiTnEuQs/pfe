@@ -1,7 +1,8 @@
-package message;
+package api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import utilities.Log;
 
 public class Message {
 
@@ -54,7 +55,7 @@ public class Message {
         try {
             return message.get(key);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("JSONObject[\"" + key + "\"] not found");
         }
 
         return null;
@@ -68,7 +69,7 @@ public class Message {
         try {
             return message.getJSONObject(key);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("JSONObject[\"" + key + "\"] not found");
         }
 
         return null;

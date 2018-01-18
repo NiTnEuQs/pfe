@@ -31,10 +31,8 @@
     <actions>
         <group id="pfe.CarbonX" text="_CarbonX" description="CarbonX">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="CarbonX.Connect" class="connection.Connect" text="Connexion"
+            <action id="CarbonX.Connect" class="carbonx.Connect" text="Connexion"
                     description="Etablir la connexion"/>
-            <action id="CarbonX.CreateFile" class="connection.CreateFile" text="CreateFile"
-                    description="Créer un fichier"/>
         </group>
     </actions>
 
