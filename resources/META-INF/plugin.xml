@@ -1,17 +1,17 @@
 <idea-plugin>
-    <id>com.your.company.unique.plugin.id</id>
-    <name>Plugin display name here</name>
+    <id>fr.univlille1.carbonx</id>
+    <name>Carbon X Linker</name>
     <version>1.0</version>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">PFE Students</vendor>
 
     <description><![CDATA[
-      Enter short description for your plugin here.<br>
-      <em>most HTML tags may be used</em>
+      Link Android Studio with Carbon X application.<br>
+      <!--em>most HTML tags may be used</em-->
     ]]></description>
 
     <change-notes><![CDATA[
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
+      First version.<br>
+      <!--em>most HTML tags may be used</em-->
     ]]>
     </change-notes>
 
@@ -20,19 +20,20 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
+    <!--depends>com.intellij.modules.androidstudio</depends-->
+    <depends>org.jetbrains.android</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
+    <extensions defaultExtensionNs="carbonx">
         <!-- Add your extensions here -->
     </extensions>
 
     <actions>
         <group id="pfe.CarbonX" text="_CarbonX" description="CarbonX">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="CarbonX.Connect" class="carbonx.Connect" text="Connexion"
-                    description="Etablir la connexion"/>
+            <action id="CarbonX.Connect" class="carbonx.Connect" text="Connexion à Carbon X"
+                    description="Etabli la connexion avec le serveur de Carbon X"/>
+            <action id="CarbonX.SendScreenLayout" class="carbonx.SendScreenLayout" text="Envoyer l'image du layout"
+                    description="Envoie l'image du layout généré par le plugin"/>
         </group>
     </actions>
 

@@ -8,12 +8,16 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.squareup.javapoet.*;
 import fr.lifl.carbon.wse.WSEListener;
 import org.json.JSONObject;
 import utilities.Log;
 
+import javax.lang.model.element.Modifier;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarbonXListener extends WSEListener {
 
@@ -32,7 +36,7 @@ public class CarbonXListener extends WSEListener {
 
         switch (msg.getType()) {
             case CREATE_FILE:
-                // {"type": "create_file","location": "/src/tmp","filename": "test.java","content": "Test"}
+                // {"type": "create_file","location": "/src/tmp","filename": "xmlToBitmap.java","content": "Test"}
                 stringTmp = msg.getAsString("location") + "/" + msg.getAsString("filename");
 
                 createFile(project, stringTmp);
@@ -44,7 +48,7 @@ public class CarbonXListener extends WSEListener {
                 createPackages(project, stringTmp);
                 break;
             case CREATE_CONCEPT:
-                // {"type": "create_concept","concept": "Personne: age(int), nom(String), prenom(String)\nFete: personnes(Personne), adresse(String), heure(Date)"}
+                // {"type": "create_concept","concept": "Personne: age(int), nom(String), prenom(String)\nFete: personnes(Personne[]), adresse(String), heure(Date)"}
                 stringTmp = msg.getAsString("concept");
 
                 createConcept(project, stringTmp);
@@ -101,8 +105,69 @@ public class CarbonXListener extends WSEListener {
         Concept concept = new Concept(string_concept);
 
         for (String entity : concept.keySet()) {
-            String entityPackage = "/src/model";
-            createFile(project, entityPackage + "/" + entity);
+            //String relativePath = "/src/main/java/model/" + entity + ".java";
+            String relativePath = "/src/main/java/model/";
+
+            //createFile(project, relativePath + ".java");
+
+            List<FieldSpec> fieldSpecs = new ArrayList<>();
+            for (String attribute : concept.getAttributes(entity)) {
+                fieldSpecs.add(
+                        FieldSpec.builder(int.class, attribute)
+                                .addModifiers(Modifier.PRIVATE)
+                                .build()
+                );
+            }
+
+            CodeBlock.Builder builder = CodeBlock.builder();
+            List<ParameterSpec> constructorParameters = new ArrayList<>();
+            for (FieldSpec fieldSpec : fieldSpecs) {
+                constructorParameters.add(
+                        ParameterSpec.builder(int.class, fieldSpec.name)
+                                .build()
+                );
+
+                builder.add("this.$N = $N;\n", fieldSpec.name, fieldSpec.name);
+            }
+
+            CodeBlock codeBlock = builder.build();
+            MethodSpec constructor = MethodSpec.constructorBuilder()
+                    .addModifiers(Modifier.PUBLIC)
+                    .addParameters(constructorParameters)
+                    .addStatement(codeBlock)
+                    .build();
+
+            TypeSpec javaClass = TypeSpec.classBuilder(entity)
+                    .addModifiers(Modifier.PUBLIC)
+                    .addFields(fieldSpecs)
+                    .addMethod(constructor)
+                    .build();
+
+            JavaFile javaFile = JavaFile.builder("main.java.model", javaClass)
+                    .build();
+
+            File directory = new File(project.getBasePath() + "/src");
+
+            try {
+                if (directory.exists())
+                    javaFile.writeTo(directory);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            /*
+            String filePath = project.getBasePath() + relativePath;
+
+            PrintWriter writer;
+
+            try {
+                writer = new PrintWriter(filePath, "UTF-8");
+                writer.print(concept.getClassContent(entity));
+                writer.close();
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            */
         }
     }
 
