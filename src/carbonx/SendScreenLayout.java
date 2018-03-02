@@ -65,6 +65,16 @@ public class SendScreenLayout extends AnAction {
         com.android.ide.common.rendering.api.Bridge b;
         */
 
+        /*
+          Essai en cherchant l'Editor correspondant
+        */
+//        FileEditor[] editors = FileEditorManager.getInstance(project).getAllEditors();
+//        for (FileEditor fe : editors) {
+//            if (fe.getClass().toString().equals(NlEditor.class.toString())) {
+//                Log.i("Trouvé: " + fe.getName());
+//            }
+//        }
+
         if (message != null) {
             WSEHandler.wse.sendMessage(message.getMessage(), WSEHandler.NOM_SESSION);
         } else {
